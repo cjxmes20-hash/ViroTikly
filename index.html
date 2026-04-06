@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TokFlow</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{font-size:2.7rem}
+.hero p{opacity:.8;margin:10px 0 20px}
+
+.btn{
+background:#ff0050;
+padding:12px 25px;
+border-radius:30px;
+border:none;
+color:white;
+cursor:pointer;
+margin:5px;
+}
+
+.btn.secondary{
+background:black;
+border:1px solid white;
+}
+
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+padding:40px 20px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+/* FORM */
+.container{
+max-width:600px;
+margin:30px auto;
+background:rgba(255,255,255,0.05);
+padding:25px;
+border-radius:15px;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#ff0050;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+/* STATUS */
+#status{text-align:center;margin-top:10px}
+
+/* SUPPORT */
+.support{
+padding:40px 20px;
+text-align:center;
+opacity:.9;
+}
+
+.support a{
+color:#ff0050;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+padding:20px;
+opacity:.6;
+}
+
+.footer a{
+color:#ff0050;
+margin:0 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<h1>🚀 TokFlow</h1>
+<p>Auto upload and post your videos to TikTok easily</p>
+
+<button class="btn secondary" onclick="connectTikTok()">🔐 Connect TikTok</button>
+<a href="#form" class="btn">Start Posting</a>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+<div class="card">⚡ Instant Upload</div>
+<div class="card">🔐 Secure Login</div>
+<div class="card">📅 Draft & Publish</div>
+<div class="card">🌍 Works for Anyone</div>
+</section>
+
+<!-- FORM -->
+<div class="container" id="form">
+<h2>Upload Video</h2>
+
+<form id="uploadForm">
+
+<input type="file" id="file" accept="video/*">
+
+<input type="text" id="video_url" placeholder="Or paste video link">
+
+<textarea id="caption" placeholder="Write caption..." required></textarea>
+
+<button type="submit">Submit</button>
+
+<div id="status"></div>
+
+</form>
+</div>
+
+<!-- SUPPORT -->
+<section class="support">
+<h2>Need Help?</h2>
+<p>Email us: <a href="mailto:support@tokflow.app">support@tokflow.app</a></p>
+<p>We respond within 24 hours</p>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+<p>© 2026 TokFlow</p>
+<a href="#">Privacy Policy</a> |
+<a href="#">Terms of Service</a>
+</div>
+
+<script>
+// 🔐 CONNECT TIKTOK
+function connectTikTok(){
+const clientKey = "PASTE_CLIENT_KEY_HERE";
+const redirectUri = "PASTE_REDIRECT_URL_HERE";
+
+const url = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&response_type=code&scope=video.publish&redirect_uri=${redirectUri}`;
+
+window.location.href = url;
+}
+
+// 📤 FORM
+document.getElementById("uploadForm").addEventListener("submit", async function(e){
+e.preventDefault();
+
+const status = document.getElementById("status");
+const file = document.getElementById("file").files[0];
+const video_url = document.getElementById("video_url").value;
+const caption = document.getElementById("caption").value;
+
+if(!file && !video_url){
+status.innerHTML="❌ Upload file OR paste link";
+return;
+}
+
+status.innerHTML="⏳ Sending...";
+
+const formData = new FormData();
+if(file) formData.append("file", file);
+formData.append("video_url", video_url);
+formData.append("caption", caption);
+
+try{
+await fetch("PASTE_N8N_WEBHOOK_URL_HERE", {
+method:"POST",
+body:formData
+});
+
+status.innerHTML="✅ Sent! Check TikTok drafts.";
+}catch(err){
+status.innerHTML="❌ Failed. Try again.";
+}
+});
+</script>
+
+</body>
+</html>
