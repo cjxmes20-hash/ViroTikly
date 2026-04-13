@@ -1,199 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Virotikly</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virotikly | Professional TikTok Management</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #ff0050;
+      --accent: #00f2ea;
+      --bg-dark: #05070a;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-muted: #94a3b8;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    body {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    /* Subtle Animated Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% -20%, rgba(255, 0, 80, 0.15), transparent 50%);
+      z-index: -1;
+    }
 
-body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
-}
+    /* Navigation */
+    nav {
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(5, 7, 10, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      z-index: 1000;
+    }
 
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
+    .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+    .logo span { color: var(--primary); }
 
-.hero h1{font-size:2.8rem}
-.hero p{opacity:.8;margin:10px 0 20px}
+    /* Hero Section */
+    .hero {
+      padding: 180px 20px 100px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-.btn{
-background:#ff0050;
-padding:12px 25px;
-border-radius:30px;
-border:none;
-color:white;
-cursor:pointer;
-margin:5px;
-text-decoration:none;
-}
+    .badge {
+      background: rgba(255, 0, 80, 0.1);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 0, 80, 0.2);
+    }
 
-.btn.secondary{
-background:black;
-border:1px solid white;
-}
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 25px;
+      line-height: 1.1;
+    }
 
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-padding:40px 20px;
-}
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      margin-bottom: 40px;
+    }
 
-.card{
-background:rgba(255,255,255,0.05);
-padding:20px;
-border-radius:15px;
-text-align:center;
-}
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
 
-.container{
-max-width:600px;
-margin:30px auto;
-background:rgba(255,255,255,0.05);
-padding:25px;
-border-radius:15px;
-}
+    .btn-main { background: #fff; color: #000; border: none; }
+    .btn-main:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
 
-input,textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:8px;
-}
+    .btn-sec { color: #fff; border: 1px solid var(--card-border); margin-left: 15px; }
+    .btn-sec:hover { background: var(--card-border); }
 
-button{
-width:100%;
-padding:12px;
-background:#ff0050;
-border:none;
-border-radius:8px;
-color:white;
-cursor:pointer;
-}
+    /* Features Layout */
+    .section-title { text-align: center; margin-bottom: 50px; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      padding: 60px 8%;
+    }
 
-#status{
-text-align:center;
-margin-top:10px;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      transition: 0.3s;
+    }
 
-.support{
-padding:40px 20px;
-text-align:center;
-opacity:.9;
-}
+    .card:hover { border-color: var(--primary); background: rgba(255, 255, 255, 0.04); }
+    .card h3 { margin-bottom: 12px; font-size: 1.25rem; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
 
-.support a{
-color:#ff0050;
-}
+    /* Form UI */
+    .upload-box {
+      background: #0d1117;
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 50px;
+      border-radius: 24px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
 
-.footer{
-text-align:center;
-padding:20px;
-opacity:.6;
-}
-</style>
+    .input-group { margin-bottom: 25px; }
+    .input-group label { display: block; margin-bottom: 10px; font-weight: 500; font-size: 0.9rem; color: #cbd5e1; }
+    
+    input[type="text"], input[type="file"], textarea {
+      width: 100%;
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 15px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    input:focus, textarea:focus { border-color: var(--primary); outline: none; background: #1c2128; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      padding: 80px 8% 40px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 25px; font-size: 0.9rem; }
+    .footer-links a:hover { color: #fff; }
+
+    @media (max-width: 900px) {
+      .features { grid-template-columns: 1fr; }
+      nav { padding: 0 5%; }
+      .upload-box { margin: 40px 20px; padding: 30px; }
+    }
+  </style>
 </head>
-
 <body>
 
-<section class="hero">
-<h1>🚀 Virotikly</h1>
-<p>Upload and manage your TikTok videos easily</p>
+  <nav>
+    <div class="logo">VIRO<span>TIKLY</span></div>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#upload">Console</a>
+      <a href="mailto:support@virotikly.com">Support</a>
+    </div>
+  </nav>
 
-<button class="btn secondary" onclick="connectTikTok()">🔐 Connect TikTok</button>
-<a href="#form" class="btn">Start Posting</a>
-</section>
+  <header class="hero">
+    <div class="badge">Version 2.0 Now Live</div>
+    <h1>TikTok Automation <br>for Serious Creators.</h1>
+    <p>Streamline your content pipeline. Connect your TikTok account once and manage your uploads through our secure API-driven dashboard.</p>
+    
+    <div class="cta">
+      <button class="btn btn-main" onclick="connectTikTok()">Get Started Free</button>
+      <a href="#upload" class="btn btn-sec">Open Dashboard</a>
+    </div>
+  </header>
 
-<section class="features">
-<div class="card">⚡ Fast Upload</div>
-<div class="card">🔐 Secure Login</div>
-<div class="card">📅 Draft & Publish</div>
-<div class="card">🌍 Works for Anyone</div>
-</section>
+  <section class="features" id="features">
+    <div class="card">
+      <h3>Official API Support</h3>
+      <p>We use TikTok's native publishing API, ensuring your account remains in good standing with zero risk.</p>
+    </div>
+    <div class="card">
+      <h3>Smart Queue</h3>
+      <p>Upload now or save to drafts. Manage your content calendar without leaving the platform.</p>
+    </div>
+    <div class="card">
+      <h3>Cloud Integration</h3>
+      <p>Directly fetch video assets from Google Drive, Dropbox, or your own server via URL.</p>
+    </div>
+  </section>
 
-<div class="container" id="form">
-<h2>Upload Video</h2>
+  <section id="upload">
+    <div class="upload-box">
+      <h2 style="margin-bottom: 30px; font-size: 1.8rem;">Campaign Manager</h2>
+      <form id="uploadForm">
+        <div class="input-group">
+          <label>Source File</label>
+          <input type="file" id="file" accept="video/*">
+        </div>
 
-<form id="uploadForm">
+        <div class="input-group">
+          <label>Remote Video URL (Optional)</label>
+          <input type="text" id="video_url" placeholder="https://cloud.storage.com/clip.mp4">
+        </div>
 
-<input type="file" id="file" accept="video/*">
+        <div class="input-group">
+          <label>Caption & Hashtags</label>
+          <textarea id="caption" rows="4" placeholder="Enter your caption here..." required></textarea>
+        </div>
 
-<input type="text" id="video_url" placeholder="Or paste video link">
+        <button type="submit" class="submit-btn">Publish Content</button>
+        <div id="status" style="margin-top: 20px; text-align: center; font-size: 0.9rem;"></div>
+      </form>
+    </div>
+  </section>
 
-<textarea id="caption" placeholder="Write caption..." required></textarea>
+  <footer>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Virotikly Dashboard. Built for creators.</p>
+    <div class="footer-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Security</a>
+    </div>
+  </footer>
 
-<button type="submit">Submit</button>
+  <script>
+    // Logic remains functional while UI is upgraded
+    function connectTikTok(){
+      const clientKey = "YOUR_CLIENT_KEY";
+      const redirectUri = "YOUR_REDIRECT_URI";
+      const url = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&response_type=code&scope=video.publish&redirect_uri=${redirectUri}`;
+      window.location.href = url;
+    }
 
-<div id="status"></div>
+    document.getElementById("uploadForm").addEventListener("submit", async function(e){
+      e.preventDefault();
+      const status = document.getElementById("status");
+      const file = document.getElementById("file").files[0];
+      const video_url = document.getElementById("video_url").value;
+      const caption = document.getElementById("caption").value;
 
-</form>
-</div>
+      if(!file && !video_url){
+        status.innerHTML = "<span style='color: var(--primary)'>Error: Please select a file or provide a URL.</span>";
+        return;
+      }
 
-<section class="support">
-<h2>Need Help?</h2>
-<p>Email: <a href="mailto:support@virotikly.com">support@virotikly.com</a></p>
-</section>
+      status.innerHTML = "<span style='color: var(--accent)'>Uploading to TikTok servers...</span>";
 
-<div class="footer">
-<p>© 2026 Virotikly</p>
-</div>
+      const formData = new FormData();
+      if(file) formData.append("file", file);
+      formData.append("video_url", video_url);
+      formData.append("caption", caption);
 
-<script>
-function connectTikTok(){
-const clientKey = "PASTE_CLIENT_KEY_HERE";
-const redirectUri = "PASTE_REDIRECT_URI_HERE";
-
-const url = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&response_type=code&scope=video.publish&redirect_uri=${redirectUri}`;
-
-window.location.href = url;
-}
-
-document.getElementById("uploadForm").addEventListener("submit", async function(e){
-e.preventDefault();
-
-const status = document.getElementById("status");
-
-const file = document.getElementById("file").files[0];
-const video_url = document.getElementById("video_url").value;
-const caption = document.getElementById("caption").value;
-
-if(!file && !video_url){
-status.innerHTML="❌ Upload file OR paste link";
-return;
-}
-
-status.innerHTML="⏳ Sending...";
-
-const formData = new FormData();
-if(file) formData.append("file", file);
-formData.append("video_url", video_url);
-formData.append("caption", caption);
-
-try{
-await fetch("PASTE_N8N_WEBHOOK_URL_HERE", {
-method:"POST",
-body:formData
-});
-
-status.innerHTML="✅ Sent!";
-}catch(err){
-status.innerHTML="❌ Failed. Try again.";
-}
-});
-</script>
+      try {
+        const response = await fetch("YOUR_N8N_WEBHOOK_URL", {
+          method: "POST",
+          body: formData
+        });
+        
+        if(response.ok) {
+          status.innerHTML = "<span style='color: var(--accent)'>Success! Content pushed to dashboard.</span>";
+        } else {
+          throw new Error();
+        }
+      } catch(err) {
+        status.innerHTML = "<span style='color: var(--primary)'>Failed: Request could not be completed.</span>";
+      }
+    });
+  </script>
 
 </body>
 </html>
