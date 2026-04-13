@@ -1,39 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Virotikly</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #24292e; }
-        h1 { color: #000; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
-        h2 { color: #24292e; margin-top: 24px; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
-        .date { color: #6a737d; font-style: italic; margin-bottom: 30px; }
-        strong { color: #000; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Virotikly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink:   #FF0050;
+      --purple: #9D00FF;
+      --cyan:   #00F5FF;
+      --bg:     #050508;
+      --card:   #0e0e18;
+      --border: rgba(255,255,255,0.07);
+      --text:   #ffffff;
+      --muted:  #72728a;
+      --body-text: #b0b0c8;
+      --grad:   linear-gradient(135deg, #FF0050 0%, #9D00FF 50%, #00F5FF 100%);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, .logo-text { font-family: 'Syne', sans-serif; }
+
+    /* Ambient orbs */
+    .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(90px); }
+    .orb-1 { width: 480px; height: 480px; top: -160px; left: -120px; background: radial-gradient(circle, rgba(255,0,80,0.08), transparent 70%); }
+    .orb-2 { width: 400px; height: 400px; bottom: -140px; right: -100px; background: radial-gradient(circle, rgba(0,245,255,0.06), transparent 70%); }
+
+    .top-bar { height: 2px; background: var(--grad); position: sticky; top: 0; z-index: 200; }
+
+    nav {
+      position: sticky; top: 2px; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px; background: rgba(5,5,8,0.85);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-text {
+      font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px;
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      text-decoration: none;
+    }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 100px; color: var(--muted); font-size: 0.78rem;
+      font-weight: 600; padding: 8px 16px; text-decoration: none;
+    }
+
+    .page { position: relative; z-index: 1; max-width: 740px; margin: 0 auto; width: 100%; padding: 48px 20px 80px; flex: 1; }
+
+    .doc-header { margin-bottom: 48px; animation: fadeUp 0.5s ease forwards; }
+    .doc-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(0,245,255,0.08); border: 1px solid rgba(0,245,255,0.22);
+      border-radius: 100px; padding: 5px 14px; font-size: 0.7rem;
+      font-weight: 600; color: var(--cyan); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+
+    .doc-title { font-size: clamp(1.9rem, 5vw, 2.6rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+    .doc-meta { font-size: 0.82rem; color: var(--muted); display: flex; gap: 12px; }
+
+    .grad-rule { border: none; height: 1px; background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink), transparent); opacity: 0.25; margin: 40px 0; }
+
+    .doc-section { margin-bottom: 36px; }
+    .section-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; display: block; }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .section-body { font-size: 0.92rem; color: var(--body-text); line-height: 1.75; }
+
+    .bottom-card {
+      margin-top: 48px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px;
+    }
+    @media (min-width: 520px) { .bottom-card { flex-direction: row; align-items: center; justify-content: space-between; } }
+
+    .home-link {
+      display: inline-flex; align-items: center; gap: 8px; background: var(--grad);
+      color: #fff; font-weight: 700; font-size: 0.85rem; padding: 12px 22px;
+      border-radius: 100px; text-decoration: none;
+    }
+
+    footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.76rem; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
 <body>
 
-    <h1>Privacy Policy</h1>
-    <p class="date">Last Updated: April 13, 2026</p>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="top-bar"></div>
 
-    <p>Welcome to <strong>Virotikly</strong>. We value your privacy and are committed to protecting your personal information.</p>
+  <nav>
+    <a href="index.html" class="logo-text">VIROTIKLY</a>
+    <a href="index.html" class="back-btn">← Back to App</a>
+  </nav>
 
-    <h2>1. Information We Access</h2>
-    <p>Virotikly does not collect or store your personal data on our servers. All authentication is handled securely through <strong>TikTok’s official OAuth system</strong>. We only access the basic profile information necessary to provide our services, such as your public username and display name.</p>
+  <div class="page">
+    <div class="doc-header">
+      <div class="doc-badge">Privacy & Security</div>
+      <h1 class="doc-title">Privacy Policy</h1>
+      <div class="doc-meta">
+        <span>Virotikly Automation</span>
+        <span>•</span>
+        <span>Updated: April 13, 2026</span>
+      </div>
+    </div>
 
-    <h2>2. Use of Information</h2>
-    <p>The information accessed is used solely to facilitate the features of the Virotikly platform. We do not use your data for any purposes outside of the core functionality of our website.</p>
+    <hr class="grad-rule">
 
-    <h2>3. Data Sharing</h2>
-    <p>We <strong>do not sell, trade, or share</strong> your information with third parties. Your data is never used for advertising, marketing, or external tracking.</p>
+    <div class="sections">
+      <div class="doc-section">
+        <span class="section-num">Section 01</span>
+        <h2 class="section-title">Data Collection</h2>
+        <p class="section-body">Virotikly collects minimal data necessary to provide automation services. This includes authentication tokens for TikTok integration and video metadata provided during the upload process. We do not sell your personal information to third parties.</p>
+      </div>
 
-    <h2>4. Data Retention and Deletion</h2>
-    <p>We do not maintain a permanent database of your TikTok personal information. You can revoke Virotikly's access at any time through your TikTok account security settings.</p>
+      <div class="doc-section">
+        <span class="section-num">Section 02</span>
+        <h2 class="section-title">TikTok API Integration</h2>
+        <p class="section-body">Our app utilizes the official TikTok API. By using Virotikly, you authorize us to manage your content based on the permissions granted during the OAuth authentication process. We only access the scopes necessary to post and schedule your content.</p>
+      </div>
 
-    <h2>5. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at: <br>
-    <strong>[virotikly@gmail.com]</strong></p>
+      <div class="doc-section">
+        <span class="section-num">Section 03</span>
+        <h2 class="section-title">Security & Storage</h2>
+        <p class="section-body">We prioritize the security of your assets. Video files processed via our "Local Upload" are handled through secure channels, and cloud integration URLs are accessed only for the purpose of transmission to your social channels.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="section-num">Section 04</span>
+        <h2 class="section-title">User Rights</h2>
+        <p class="section-body">You retain full ownership of your content. You may revoke Virotikly's access to your TikTok account at any time through your social media security settings or by contacting our support team.</p>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <div style="font-size: 0.85rem; color: var(--muted);">
+        <strong>Privacy concerns?</strong><br>
+        Contact our dev team directly via the WhatsApp channel.
+      </div>
+      <a href="index.html" class="home-link">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <footer>
+    <p style="font-size: 0.76rem; color: var(--muted);">&copy; 2026 Virotikly. Safe content scaling.</p>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="index.html">Dashboard</a>
+    </div>
+  </footer>
 
 </body>
 </html>
