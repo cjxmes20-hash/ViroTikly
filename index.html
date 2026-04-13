@@ -3,262 +3,606 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virotikly | Content Evolution</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Outfit:wght@400;800&display=swap" rel="stylesheet">
+  <title>Virotikly | Scale Your Content</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #ff0050; 
-      --neon: #00f2ea;
-      --deep-bg: #000000;
-      --glass: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.1);
+      --pink:   #FF0050;
+      --purple: #9D00FF;
+      --cyan:   #00F5FF;
+      --bg:     #050508;
+      --card:   #0e0e18;
+      --border: rgba(255,255,255,0.07);
+      --text:   #ffffff;
+      --muted:  #72728a;
+      --grad:   linear-gradient(135deg, #FF0050 0%, #9D00FF 50%, #00F5FF 100%);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-    h1, h2, .logo { font-family: 'Space Grotesk', sans-serif; text-transform: lowercase; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--deep-bg);
-      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
-      background-image: radial-gradient(circle at 80% 20%, rgba(255, 0, 80, 0.15), transparent 40%);
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Floating Nav */
+    h1, h2, h3, .logo-text { font-family: 'Syne', sans-serif; }
+
+    /* Ambient orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      top: -180px; left: -140px;
+      background: radial-gradient(circle, rgba(255,0,80,0.09), transparent 70%);
+    }
+    .orb-2 {
+      width: 440px; height: 440px;
+      bottom: -160px; right: -120px;
+      background: radial-gradient(circle, rgba(0,245,255,0.07), transparent 70%);
+    }
+    .orb-3 {
+      width: 360px; height: 360px;
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(157,0,255,0.05), transparent 70%);
+    }
+
+    /* Top gradient bar */
+    .top-bar {
+      height: 2px;
+      background: var(--grad);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      flex-shrink: 0;
+    }
+
+    /* Nav */
     nav {
-      padding: 20px 6%;
+      position: sticky;
+      top: 2px;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(20px);
-      z-index: 1000;
+      padding: 18px 24px;
+      background: rgba(5,5,8,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
     }
 
-    .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: -1.5px; }
-    .logo span { color: var(--primary); }
-
-    /* Ultra-Clean Hero */
-    .hero {
-      padding: 80px 8% 40px;
-      text-align: left;
-    }
-
-    .hero h1 { font-size: 3.5rem; line-height: 0.9; letter-spacing: -3px; margin-bottom: 15px; }
-    .hero p { color: #888; font-size: 1.1rem; max-width: 300px; }
-
-    /* Spread Out Sections */
-    section { padding: 40px 6%; }
-
-    .card-label {
-      font-size: 0.7rem;
+    .logo-text {
+      font-size: 1.35rem;
       font-weight: 800;
-      color: var(--primary);
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-      display: block;
+      letter-spacing: -0.5px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    /* Identity Card */
-    .auth-card {
-      background: var(--glass);
+    .nav-btn {
+      background: none;
       border: 1px solid var(--border);
-      padding: 30px;
-      border-radius: 35px;
+      border-radius: 100px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* Page shell */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1060px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 36px 20px 64px;
+      flex: 1;
+    }
+
+    /* Hero row */
+    .hero {
+      margin-bottom: 36px;
+    }
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,245,255,0.07);
+      border: 1px solid rgba(0,245,255,0.18);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .page-title {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .page-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Grid layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 740px) {
+      .grid { grid-template-columns: 1.55fr 1fr; align-items: start; }
+      .page { padding: 44px 32px 80px; }
+    }
+
+    /* Gradient-border card */
+    .g-wrap {
+      background: var(--grad);
+      padding: 1px;
+      border-radius: 24px;
+    }
+    .g-inner {
+      background: var(--card);
+      border-radius: 23px;
+      padding: 28px 28px 32px;
+    }
+
+    /* Plain card */
+    .p-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px 24px;
+    }
+
+    /* Sidebar stack */
+    .side-stack { display: flex; flex-direction: column; gap: 16px; }
+
+    /* Form elements */
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.2px;
+    }
+
+    .field { margin-bottom: 20px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .f-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: rgba(157,0,255,0.4);
+      background: rgba(255,255,255,0.06);
+    }
+
+    input[type="file"] {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1.5px dashed rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 20px 16px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    input[type="file"]:hover { border-color: rgba(157,0,255,0.4); }
+
+    textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+    select option { background: #1a1a2e; }
+
+    /* Gradient button */
+    .btn-grad {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 100px;
+      background: var(--grad);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-grad:hover { opacity: 0.82; }
+    .btn-grad:active { transform: scale(0.98); }
+
+    .btn-grad-sm {
+      font-size: 0.88rem;
+      padding: 13px;
+    }
+
+    /* Ghost link button */
+    .btn-ghost {
+      display: block;
+      width: 100%;
+      padding: 13px 16px;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.07); color: var(--text); border-color: rgba(255,255,255,0.14); }
+
+    /* Thin gradient rule */
+    .grad-rule {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan), transparent);
+      opacity: 0.3;
+      margin: 20px 0;
+    }
+
+    /* Auth card */
+    .auth-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-
-    .btn-tiktok {
-      background: #fff;
-      color: #000;
-      padding: 12px 24px;
-      border-radius: 100px;
-      font-weight: 800;
-      font-size: 0.8rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* Form Design - Spacious & Sharp */
-    .upload-container {
-      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-      border-top: 1px solid var(--border);
-      border-radius: 40px 40px 0 0;
-      padding: 50px 6% 100px;
-    }
-
-    .input-wrap { margin-bottom: 35px; }
-    
-    select, input, textarea {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 2px solid var(--border);
-      padding: 15px 0;
-      color: #fff;
-      font-size: 1.2rem;
-      transition: 0.4s;
-      border-radius: 0;
-    }
-
-    select:focus, input:focus, textarea:focus { 
-      outline: none; 
-      border-bottom-color: var(--neon);
-    }
-
-    .schedule-box {
-      background: var(--glass);
-      padding: 25px;
-      border-radius: 25px;
-      margin-top: 20px;
-    }
-
-    .btn-submit {
-      background: var(--primary);
-      color: #fff;
-      width: 100%;
-      padding: 22px;
-      border-radius: 20px;
-      font-weight: 800;
-      font-size: 1.1rem;
-      border: none;
-      margin-top: 40px;
-      box-shadow: 0 15px 30px rgba(255, 0, 80, 0.3);
-    }
-
-    /* Fixed Bottom Legal/Support Links */
-    .footer-dock {
+    .auth-avatar {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.05);
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 15px;
-      padding: 20px;
-      font-size: 0.75rem;
-      background: #000;
     }
-    
-    .footer-dock a { color: #555; text-decoration: none; font-weight: 600; }
 
-    /* Support Modal */
-    #supportBox {
+    /* Support card */
+    .support-card {
+      background: rgba(255,0,80,0.05);
+      border: 1px solid rgba(255,0,80,0.2);
+      border-radius: 20px;
+      padding: 22px 24px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .support-card:hover { border-color: rgba(255,0,80,0.45); background: rgba(255,0,80,0.08); }
+    .support-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .support-title { color: var(--pink); font-weight: 700; font-size: 0.9rem; }
+    .support-arrow { color: var(--pink); font-size: 1rem; }
+    .support-sub { color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+
+    /* Modal */
+    #supportModal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.95);
-      z-index: 2000;
-      padding: 40px;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      z-index: 1000;
     }
+    .modal-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 40px);
+      max-width: 360px;
+    }
+    .modal-grad {
+      background: var(--grad);
+      padding: 1px;
+      border-radius: 28px;
+    }
+    .modal-box {
+      background: #0e0e1a;
+      border-radius: 27px;
+      padding: 36px 28px 32px;
+      text-align: center;
+    }
+    .modal-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(255,0,80,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; margin-bottom: 6px; }
+    .modal-sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
 
-    .modal-inner { margin-top: 100px; }
-    .modal-inner h2 { font-size: 3rem; letter-spacing: -2px; margin-bottom: 20px; }
-    .wa-big { color: var(--neon); font-size: 1.5rem; text-decoration: none; font-weight: 800; display: block; margin-top: 20px; }
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 16px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: opacity 0.2s;
+    }
+    .wa-btn:hover { opacity: 0.88; }
 
+    .email-btn {
+      display: block;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      padding: 15px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .email-btn:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+
+    .modal-close {
+      font-size: 0.78rem;
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); margin-bottom: 14px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.55s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.22s; }
+    .d4 { animation-delay: 0.30s; }
+    .d5 { animation-delay: 0.38s; }
   </style>
 </head>
 <body>
 
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="top-bar"></div>
+
   <nav>
-    <div class="logo">viro<span>tikly</span></div>
-    <div onclick="toggleSupport()" style="font-weight: 800; font-size: 0.7rem; letter-spacing: 1px; color: var(--neon);">HELP</div>
+    <div class="logo-text">VIROTIKLY</div>
+    <button class="nav-btn" onclick="toggleSupport()">Support</button>
   </nav>
 
-  <header class="hero">
-    <span class="card-label">READY TO POST?</span>
-    <h1>scale <br>your <br>vibe.</h1>
-    <p>automated tiktok flow for the next gen of creators.</p>
-  </header>
+  <div class="page">
 
-  <section>
-    <div class="auth-card">
-      <div>
-        <h4 style="font-size: 1rem;">Account</h4>
-        <p style="font-size: 0.7rem; color: #888;">Status: Disconnected</p>
+    <div class="hero fade-up d1">
+      <div class="live-pill">
+        <span class="live-dot"></span> Live Dashboard
       </div>
-      <button class="btn-tiktok" onclick="connectTikTok()">CONNECT</button>
+      <h1 class="page-title">Campaign Builder</h1>
+      <p class="page-sub">Publish your content across TikTok — fast, automated, and at scale.</p>
     </div>
-  </section>
 
-  <main class="upload-container">
-    <form id="cmsForm">
-      <div class="input-wrap">
-        <label class="card-label">SOURCE</label>
-        <select id="video_source">
-          <option value="local">Local Gallery</option>
-          <option value="cloud">Cloud URL</option>
-        </select>
-      </div>
+    <div class="grid">
 
-      <div class="input-wrap" id="file_in">
-        <label class="card-label">MEDIA</label>
-        <input type="file" id="local_file">
-      </div>
+      <!-- Main form card -->
+      <div class="g-wrap fade-up d2">
+        <div class="g-inner">
+          <h2 class="card-title">New Campaign</h2>
+          <form id="cmsForm">
 
-      <div class="input-wrap" id="url_in" style="display:none;">
-        <label class="card-label">REMOTE LINK</label>
-        <input type="text" id="remote_url" placeholder="https://...">
-      </div>
+            <div class="field">
+              <span class="f-label">Video Source</span>
+              <select id="video_source">
+                <option value="local">Direct Upload</option>
+                <option value="cloud">Cloud URL</option>
+              </select>
+            </div>
 
-      <div class="input-wrap">
-        <label class="card-label">CAPTION</label>
-        <textarea id="caption" rows="2" placeholder="Write it..."></textarea>
-      </div>
+            <div class="field" id="file_in">
+              <span class="f-label">Video File</span>
+              <input type="file" id="local_file" accept="video/*">
+            </div>
 
-      <div class="schedule-box">
-        <div style="display:flex; justify-content: space-between; align-items: center;">
-          <span style="font-weight: 800; font-size: 0.8rem;">SCHEDULE?</span>
-          <input type="checkbox" id="is_scheduled" style="width: 25px; height: 25px;">
+            <div class="field" id="url_in" style="display:none;">
+              <span class="f-label">Cloud URL</span>
+              <input type="text" id="remote_url" placeholder="https://your-video-url.com/clip.mp4">
+            </div>
+
+            <div class="field">
+              <span class="f-label">Caption</span>
+              <textarea id="caption" placeholder="Write your caption here... #hashtags encouraged" required></textarea>
+            </div>
+
+            <hr class="grad-rule">
+
+            <button type="submit" class="btn-grad">Execute Publishing</button>
+
+          </form>
         </div>
-        <input type="datetime-local" id="publish_at" style="display:none; font-size: 1rem; border-bottom: 1px solid #333;">
       </div>
 
-      <button type="submit" class="btn-submit">PUBLISH NOW</button>
-    </form>
-  </main>
+      <!-- Sidebar -->
+      <div class="side-stack">
 
-  <div id="supportBox">
-    <div class="modal-inner">
-      <span class="card-label">SUPPORT</span>
-      <h2>got <br>issues?</h2>
-      <a href="https://wa.me/2349169292033" class="wa-big">WHATSAPP DEVELOPER</a>
-      <a href="mailto:your@email.com" style="color:#fff; display:block; margin-top:20px; font-weight:800;">EMAIL US</a>
-      <p onclick="toggleSupport()" style="margin-top:50px; color: var(--primary); font-weight: 800;">[ CLOSE ]</p>
+        <!-- Account auth -->
+        <div class="p-card fade-up d3">
+          <div class="auth-header">
+            <span class="f-label" style="margin-bottom:0;">Account Identity</span>
+            <div class="auth-avatar">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                <circle cx="7.5" cy="4.5" r="2.8" stroke="#72728a" stroke-width="1.4"/>
+                <path d="M1.5 13.5C1.5 10.46 4.24 8 7.5 8s6 2.46 6 5.5" stroke="#72728a" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <button class="btn-grad btn-grad-sm">Authenticate TikTok</button>
+        </div>
+
+        <!-- Legal -->
+        <div class="p-card fade-up d4">
+          <span class="f-label">Legal & Policy</span>
+          <a href="privacy.html" class="btn-ghost">Privacy Policy</a>
+          <a href="terms.html" class="btn-ghost">Terms of Service</a>
+        </div>
+
+        <!-- Support CTA -->
+        <div class="support-card fade-up d5" onclick="toggleSupport()">
+          <div class="support-head">
+            <span class="support-title">Need Help?</span>
+            <span class="support-arrow">↗</span>
+          </div>
+          <p class="support-sub">Chat directly with the developer — responses are fast.</p>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <div class="footer-dock">
-    <a href="privacy.html">PRIVACY</a>
-    <span>/</span>
-    <a href="terms.html">TERMS</a>
-    <span>/</span>
-    <a href="#" onclick="toggleSupport()">SUPPORT</a>
+  <!-- Support Modal -->
+  <div id="supportModal" onclick="handleModalClick(event)">
+    <div class="modal-center">
+      <div class="modal-grad">
+        <div class="modal-box">
+          <div class="modal-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M11 2C6.03 2 2 6.03 2 11c0 1.55.38 3.01 1.05 4.3L2 20l4.7-1.05A8.96 8.96 0 0011 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z" stroke="#FF0050" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="modal-title">Developer Support</h2>
+          <p class="modal-sub">Reach out directly — we're quick to respond and happy to help.</p>
+          <a href="https://wa.me/2349169292033" target="_blank" class="wa-btn">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 1C4.58 1 1 4.58 1 9c0 1.38.36 2.68.99 3.81L1 17l4.19-.99A7.96 7.96 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.2"/>
+              <path d="M6.5 6s.5 1 1.5 2 2 1.5 2 1.5l1-1s1 .5 1.5 1-.5 1.5-1 2-3-1-4.5-2.5S5 6 5.5 5.5 6.5 6 6.5 6z" fill="white"/>
+            </svg>
+            WhatsApp Developer
+          </a>
+          <a href="mailto:your-email@gmail.com" class="email-btn">Email Support</a>
+          <span class="modal-close" onclick="toggleSupport()">Close</span>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <footer>
+    <p class="footer-copy">&copy; 2026 Virotikly. Built for creators.</p>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="#" onclick="toggleSupport(); return false;">Support</a>
+    </div>
+  </footer>
 
   <script>
-    const source = document.getElementById('video_source');
-    const sched = document.getElementById('is_scheduled');
-
-    source.onchange = () => {
-      document.getElementById('file_in').style.display = source.value === 'local' ? 'block' : 'none';
-      document.getElementById('url_in').style.display = source.value === 'cloud' ? 'block' : 'none';
-    };
-
-    sched.onchange = () => {
-      document.getElementById('publish_at').style.display = sched.checked ? 'block' : 'none';
+    const src = document.getElementById('video_source');
+    src.onchange = () => {
+      document.getElementById('file_in').style.display = src.value === 'local' ? 'block' : 'none';
+      document.getElementById('url_in').style.display = src.value === 'cloud' ? 'block' : 'none';
     };
 
     function toggleSupport() {
-      const m = document.getElementById('supportBox');
+      const m = document.getElementById('supportModal');
       m.style.display = m.style.display === 'block' ? 'none' : 'block';
     }
 
-    function connectTikTok() {
-      // Your TikTok Auth Logic
+    function handleModalClick(e) {
+      if (e.target === document.getElementById('supportModal')) toggleSupport();
     }
   </script>
+
 </body>
 </html>
