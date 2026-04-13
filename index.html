@@ -3,303 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virotikly | Professional TikTok Management</title>
-  
+  <title>Virotikly CMS | Official Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet">
-  
   <style>
     :root {
-      --primary: #ff0050;
-      --accent: #00f2ea;
-      --bg-dark: #05070a;
-      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #ff0050; --accent: #00f2ea; --bg-dark: #05070a;
+      --card-bg: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1);
       --text-muted: #94a3b8;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-dark); color: #fff; line-height: 1.6; }
     
-    body {
-      background-color: var(--bg-dark);
-      color: #ffffff;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* Subtle Animated Background */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% -20%, rgba(255, 0, 80, 0.15), transparent 50%);
-      z-index: -1;
-    }
-
-    /* Navigation */
-    nav {
-      height: 80px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 8%;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      background: rgba(5, 7, 10, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
-      z-index: 1000;
-    }
-
-    .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+    /* Layout */
+    nav { height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+    .logo { font-weight: 800; font-size: 1.3rem; letter-spacing: -1px; }
     .logo span { color: var(--primary); }
 
-    /* Hero Section */
-    .hero {
-      padding: 180px 20px 100px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .badge {
-      background: rgba(255, 0, 80, 0.1);
-      color: var(--primary);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 0, 80, 0.2);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -2px;
-      margin-bottom: 25px;
-      line-height: 1.1;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.25rem;
-      margin-bottom: 40px;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 14px 30px;
-      border-radius: 10px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: 0.2s ease;
-      cursor: pointer;
-    }
-
-    .btn-main { background: #fff; color: #000; border: none; }
-    .btn-main:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
-
-    .btn-sec { color: #fff; border: 1px solid var(--card-border); margin-left: 15px; }
-    .btn-sec:hover { background: var(--card-border); }
-
-    /* Features Layout */
-    .section-title { text-align: center; margin-bottom: 50px; }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      padding: 60px 8%;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-      transition: 0.3s;
-    }
-
-    .card:hover { border-color: var(--primary); background: rgba(255, 255, 255, 0.04); }
-    .card h3 { margin-bottom: 12px; font-size: 1.25rem; }
-    .card p { color: var(--text-muted); font-size: 0.95rem; }
-
-    /* Form UI */
-    .upload-box {
-      background: #0d1117;
-      max-width: 600px;
-      margin: 80px auto;
-      padding: 50px;
-      border-radius: 24px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-    }
-
-    .input-group { margin-bottom: 25px; }
-    .input-group label { display: block; margin-bottom: 10px; font-weight: 500; font-size: 0.9rem; color: #cbd5e1; }
+    .dashboard-container { max-width: 1100px; margin: 40px auto; display: grid; grid-template-columns: 1fr 350px; gap: 30px; padding: 0 20px; }
+    .main-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px; }
     
-    input[type="text"], input[type="file"], textarea {
-      width: 100%;
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 15px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1rem;
-    }
+    /* Form Elements */
+    .form-group { margin-bottom: 25px; }
+    label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.8rem; color: #cbd5e1; text-transform: uppercase; }
+    input, select, textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: #fff; font-size: 1rem; }
+    .submit-btn { width: 100%; padding: 18px; background: #fff; color: #000; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+    .submit-btn:hover { background: var(--accent); }
 
-    input:focus, textarea:focus { border-color: var(--primary); outline: none; background: #1c2128; }
+    /* Support Modal */
+    #supportModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+    .modal-content { background: #111; margin: 15% auto; padding: 35px; border: 1px solid var(--border); width: 90%; max-width: 400px; border-radius: 24px; text-align: center; box-shadow: 0 0 30px rgba(255,0,80,0.2); }
+    .support-btn { display: block; width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: 700; color: white; }
+    .wa-btn { background: #25D366; }
+    .mail-btn { background: #333; }
 
-    .submit-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--primary);
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-    }
+    /* Sidebar Status */
+    .status-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); padding: 25px; border-radius: 20px; margin-bottom: 20px; }
+    .btn-tiktok { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; }
 
-    /* Footer */
-    footer {
-      padding: 80px 8% 40px;
-      border-top: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 25px; font-size: 0.9rem; }
-    .footer-links a:hover { color: #fff; }
-
-    @media (max-width: 900px) {
-      .features { grid-template-columns: 1fr; }
-      nav { padding: 0 5%; }
-      .upload-box { margin: 40px 20px; padding: 30px; }
-    }
+    footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+    .link-alt { color: var(--primary); cursor: pointer; text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <nav>
     <div class="logo">VIRO<span>TIKLY</span></div>
-    <div class="footer-links">
-      <a href="#features">Features</a>
-      <a href="#upload">Console</a>
-      <a href="mailto:support@virotikly.com">Support</a>
-    </div>
+    <div class="link-alt" onclick="toggleSupport()">Support & Help</div>
   </nav>
 
-  <header class="hero">
-    <div class="badge">Version 2.0 Now Live</div>
-    <h1>TikTok Automation <br>for Serious Creators.</h1>
-    <p>Streamline your content pipeline. Connect your TikTok account once and manage your uploads through our secure API-driven dashboard.</p>
-    
-    <div class="cta">
-      <button class="btn btn-main" onclick="connectTikTok()">Get Started Free</button>
-      <a href="#upload" class="btn btn-sec">Open Dashboard</a>
-    </div>
-  </header>
+  <div class="dashboard-container">
+    <main class="main-panel">
+      <h2 style="margin-bottom: 10px;">Campaign Builder</h2>
+      <p style="color:var(--text-muted); margin-bottom: 30px;">Direct API Publishing • Smart Queue v2</p>
 
-  <section class="features" id="features">
-    <div class="card">
-      <h3>Official API Support</h3>
-      <p>We use TikTok's native publishing API, ensuring your account remains in good standing with zero risk.</p>
-    </div>
-    <div class="card">
-      <h3>Smart Queue</h3>
-      <p>Upload now or save to drafts. Manage your content calendar without leaving the platform.</p>
-    </div>
-    <div class="card">
-      <h3>Cloud Integration</h3>
-      <p>Directly fetch video assets from Google Drive, Dropbox, or your own server via URL.</p>
-    </div>
-  </section>
-
-  <section id="upload">
-    <div class="upload-box">
-      <h2 style="margin-bottom: 30px; font-size: 1.8rem;">Campaign Manager</h2>
-      <form id="uploadForm">
-        <div class="input-group">
-          <label>Source File</label>
-          <input type="file" id="file" accept="video/*">
+      <form id="cmsForm">
+        <div class="form-group">
+          <label>Video Source</label>
+          <select id="video_source">
+            <option value="local">Local System File</option>
+            <option value="cloud">Cloud Remote URL</option>
+          </select>
         </div>
 
-        <div class="input-group">
-          <label>Remote Video URL (Optional)</label>
-          <input type="text" id="video_url" placeholder="https://cloud.storage.com/clip.mp4">
+        <div id="file_input_zone" class="form-group">
+          <label>Select Media</label>
+          <input type="file" id="local_file" accept="video/*">
         </div>
 
-        <div class="input-group">
-          <label>Caption & Hashtags</label>
-          <textarea id="caption" rows="4" placeholder="Enter your caption here..." required></textarea>
+        <div id="url_input_zone" class="form-group" style="display:none;">
+          <label>Cloud URL</label>
+          <input type="text" id="remote_url" placeholder="https://cloud.com/my-video.mp4">
         </div>
 
-        <button type="submit" class="submit-btn">Publish Content</button>
-        <div id="status" style="margin-top: 20px; text-align: center; font-size: 0.9rem;"></div>
+        <div class="form-group">
+          <label>Caption & Tags</label>
+          <textarea id="caption" rows="4" placeholder="Viral caption here..." required></textarea>
+        </div>
+
+        <div class="form-group" style="background:rgba(255,255,255,0.03); padding:20px; border-radius:15px;">
+          <label>Smart Queue</label>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <input type="checkbox" id="is_scheduled" style="width:20px; height:20px;">
+            <span>Enable Scheduled Posting</span>
+          </div>
+          <input type="datetime-local" id="publish_at" style="display:none; margin-top:15px;">
+        </div>
+
+        <button type="submit" class="submit-btn">Publish to TikTok</button>
+        <div id="status-msg" style="margin-top:20px; text-align:center;"></div>
       </form>
+    </main>
+
+    <aside>
+      <div class="status-card">
+        <h4 style="margin-bottom:15px">Account Identity</h4>
+        <button class="btn-tiktok" onclick="connectTikTok()">🔐 Connect TikTok</button>
+      </div>
+      <div class="status-card">
+        <h4 style="margin-bottom:10px">Quick Links</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted); cursor:pointer" onclick="toggleSupport()">Contact Developer</p>
+        <a href="terms.html" style="font-size:0.8rem; color:var(--text-muted); display:block; margin-top:5px; text-decoration:none;">Legal Terms</a>
+      </div>
+    </aside>
+  </div>
+
+  <div id="supportModal">
+    <div class="modal-content">
+      <h3 style="margin-bottom:10px">Virotikly Support</h3>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px">Need help with your automation?</p>
+      
+      <a href="https://wa.me/2349169292033?text=Hello! I need help with Virotikly Dashboard." target="_blank" class="support-btn wa-btn">💬 Chat on WhatsApp</a>
+      
+      <a href="mailto:your-email@gmail.com?subject=Virotikly Support" class="support-btn mail-btn">✉️ Send an Email</a>
+      
+      <p onclick="toggleSupport()" style="margin-top:20px; cursor:pointer; font-size:0.8rem; color:var(--primary)">Close Window</p>
     </div>
-  </section>
+  </div>
 
   <footer>
-    <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Virotikly Dashboard. Built for creators.</p>
-    <div class="footer-links">
-      <a href="terms.html">Terms of Service</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Security</a>
-    </div>
+    <p>&copy; 2026 Virotikly Dashboard • <span class="link-alt" onclick="toggleSupport()">Get Support</span></p>
   </footer>
 
   <script>
-    // Logic remains functional while UI is upgraded
-    function connectTikTok(){
-      const clientKey = "YOUR_CLIENT_KEY";
-      const redirectUri = "YOUR_REDIRECT_URI";
-      const url = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&response_type=code&scope=video.publish&redirect_uri=${redirectUri}`;
-      window.location.href = url;
+    // --- UI Logic ---
+    const sourceSel = document.getElementById('video_source');
+    const scheduleCheck = document.getElementById('is_scheduled');
+    
+    sourceSel.addEventListener('change', () => {
+      document.getElementById('file_input_zone').style.display = sourceSel.value === 'local' ? 'block' : 'none';
+      document.getElementById('url_input_zone').style.display = sourceSel.value === 'cloud' ? 'block' : 'none';
+    });
+
+    scheduleCheck.addEventListener('change', () => {
+      document.getElementById('publish_at').style.display = scheduleCheck.checked ? 'block' : 'none';
+    });
+
+    function toggleSupport() {
+      const m = document.getElementById('supportModal');
+      m.style.display = m.style.display === 'block' ? 'none' : 'block';
     }
 
-    document.getElementById("uploadForm").addEventListener("submit", async function(e){
-      e.preventDefault();
-      const status = document.getElementById("status");
-      const file = document.getElementById("file").files[0];
-      const video_url = document.getElementById("video_url").value;
-      const caption = document.getElementById("caption").value;
+    function connectTikTok() {
+      const clientKey = "YOUR_CLIENT_KEY";
+      const redirect = "https://cjxmes20-hash.github.io/ViroTikly/";
+      window.location.href = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&response_type=code&scope=video.publish&redirect_uri=${redirect}`;
+    }
 
-      if(!file && !video_url){
-        status.innerHTML = "<span style='color: var(--primary)'>Error: Please select a file or provide a URL.</span>";
-        return;
+    // --- Form to n8n ---
+    document.getElementById('cmsForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const status = document.getElementById('status-msg');
+      status.innerHTML = "⏳ Sending to n8n workflow...";
+      
+      const formData = new FormData();
+      formData.append("caption", document.getElementById("caption").value);
+      formData.append("scheduled", scheduleCheck.checked);
+      formData.append("time", document.getElementById("publish_at").value);
+
+      if(sourceSel.value === 'local') {
+        formData.append("video", document.getElementById("local_file").files[0]);
+      } else {
+        formData.append("url", document.getElementById("remote_url").value);
       }
 
-      status.innerHTML = "<span style='color: var(--accent)'>Uploading to TikTok servers...</span>";
-
-      const formData = new FormData();
-      if(file) formData.append("file", file);
-      formData.append("video_url", video_url);
-      formData.append("caption", caption);
-
       try {
-        const response = await fetch("YOUR_N8N_WEBHOOK_URL", {
-          method: "POST",
-          body: formData
-        });
-        
-        if(response.ok) {
-          status.innerHTML = "<span style='color: var(--accent)'>Success! Content pushed to dashboard.</span>";
-        } else {
-          throw new Error();
-        }
+        const response = await fetch("PASTE_N8N_WEBHOOK_URL_HERE", { method: "POST", body: formData });
+        if(response.ok) { status.innerHTML = "✅ Asset Queued Successfully!"; }
+        else { throw new Error(); }
       } catch(err) {
-        status.innerHTML = "<span style='color: var(--primary)'>Failed: Request could not be completed.</span>";
+        status.innerHTML = "❌ Connection failed. Verify n8n webhook.";
       }
     });
   </script>
-
 </body>
 </html>
