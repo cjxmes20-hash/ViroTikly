@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | Virotikly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink:   #FF0050;
+      --purple: #9D00FF;
+      --cyan:   #00F5FF;
+      --bg:     #050508;
+      --card:   #0e0e18;
+      --border: rgba(255,255,255,0.07);
+      --text:   #ffffff;
+      --muted:  #72728a;
+      --body-text: #b0b0c8;
+      --grad:   linear-gradient(135deg, #FF0050 0%, #9D00FF 50%, #00F5FF 100%);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, .logo-text { font-family: 'Syne', sans-serif; }
+
+    /* Ambient orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(90px);
+    }
+    .orb-1 {
+      width: 480px; height: 480px;
+      top: -160px; left: -120px;
+      background: radial-gradient(circle, rgba(255,0,80,0.08), transparent 70%);
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      bottom: -140px; right: -100px;
+      background: radial-gradient(circle, rgba(0,245,255,0.06), transparent 70%);
+    }
+
+    /* Top gradient bar */
+    .top-bar {
+      height: 2px;
+      background: var(--grad);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      flex-shrink: 0;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 2px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      background: rgba(5,5,8,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 8px 16px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .back-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+    .back-arrow { font-size: 0.9rem; }
+
+    /* Page wrapper */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 740px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 48px 20px 80px;
+      flex: 1;
+    }
+
+    @media (min-width: 600px) {
+      .page { padding: 56px 32px 96px; }
+    }
+
+    /* Doc header */
+    .doc-header {
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease 0.05s forwards;
+    }
+
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(157,0,255,0.08);
+      border: 1px solid rgba(157,0,255,0.22);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #c060ff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .doc-title {
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .doc-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meta-sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* Gradient rule */
+    .grad-rule {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan), transparent);
+      opacity: 0.25;
+      margin: 40px 0;
+    }
+
+    /* Sections */
+    .sections {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease 0.18s forwards;
+    }
+
+    .doc-section {
+      margin-bottom: 36px;
+    }
+
+    .section-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+    }
+
+    .section-body {
+      font-size: 0.92rem;
+      color: var(--body-text);
+      line-height: 1.75;
+    }
+
+    /* Bottom card */
+    .bottom-card {
+      margin-top: 48px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease 0.32s forwards;
+    }
+
+    @media (min-width: 520px) {
+      .bottom-card { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+
+    .bottom-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .bottom-text strong { color: var(--text); font-weight: 600; }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 12px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .home-link:hover { opacity: 0.84; }
+    .home-link:active { transform: scale(0.97); }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 24px 24px;
+      text-align: center;
+    }
+    .footer-copy { font-size: 0.76rem; color: var(--muted); margin-bottom: 12px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.76rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="top-bar"></div>
+
+  <nav>
+    <a href="index.html" class="logo-text">VIROTIKLY</a>
+    <a href="index.html" class="back-btn">
+      <span class="back-arrow">←</span> Back to App
+    </a>
+  </nav>
+
+  <div class="page">
+
+    <div class="doc-header">
+      <div class="doc-badge">Legal Document</div>
+      <h1 class="doc-title">Terms of Service</h1>
+      <div class="doc-meta">
+        <span>Virotikly</span>
+        <span class="meta-sep"></span>
+        <span>Last updated: April 13, 2026</span>
+      </div>
+    </div>
+
+    <hr class="grad-rule">
+
+    <div class="sections">
+
+      <div class="doc-section">
+        <span class="section-num">Section 01</span>
+        <h2 class="section-title">Acceptance of Terms</h2>
+        <p class="section-body">By accessing or using this website, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any part of these terms, you may not access the service.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="section-num">Section 02</span>
+        <h2 class="section-title">Intellectual Property</h2>
+        <p class="section-body">All content on this site — including text, graphics, logos, and code — is the property of Virotikly and is protected under applicable copyright laws. Unauthorized reproduction or redistribution of any content is strictly prohibited.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="section-num">Section 03</span>
+        <h2 class="section-title">User Conduct</h2>
+        <p class="section-body">Users agree not to use this platform for any unlawful purpose, including but not limited to distributing malicious content, attempting to gain unauthorized access, or violating any applicable local, national, or international law or regulation.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="section-num">Section 04</span>
+        <h2 class="section-title">Limitation of Liability</h2>
+        <p class="section-body">The materials and services on this website are provided "as is" without warranties of any kind, either express or implied. In no event shall Virotikly or its operators be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use this platform.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="section-num">Section 05</span>
+        <h2 class="section-title">Governing Law</h2>
+        <p class="section-body">Any claim or dispute relating to this website and its services shall be governed by applicable law without regard to conflict of law provisions. By using Virotikly, you consent to the exclusive jurisdiction of the relevant authorities for resolving any such disputes.</p>
+      </div>
+
+    </div>
+
+    <div class="bottom-card">
+      <div class="bottom-text">
+        <strong>Questions about these terms?</strong><br>
+        Reach out to the developer via the support channel on the main dashboard.
+      </div>
+      <a href="index.html" class="home-link">
+        ← Back to Dashboard
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="footer-copy">&copy; 2026 Virotikly. Built for creators.</p>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="text.html">Terms</a>
+      <a href="index.html">Dashboard</a>
+    </div>
+  </footer>
+
+</body>
+</html>
